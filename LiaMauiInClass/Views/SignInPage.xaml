@@ -2,20 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LiaMauiInClass.Views.SignInPage"
-             Title="SignInPage">
-    
+             Title="SignInPage"
+             xmlns:views="clr-namespace:LiaMauiInClass.Views"
+             x:DataType="views:SignInPage">
+
+
+
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Offset="0.0" Color="LightCyan"/>
+            <GradientStop Offset="0.0" Color="Purple"/>
             <GradientStop Offset="0.5" Color="#3a7bd5"/>
-            <GradientStop Offset="1.0" Color="Purple"/>
+            <GradientStop Offset="1.0" Color="LightCyan"/>
         </LinearGradientBrush>
     </ContentPage.Background>
 
-  <VerticalStackLayout
+    <VerticalStackLayout
         Padding="30"
         VerticalOptions="Center">
-
 
         <Border
           Padding="10"
@@ -24,14 +27,13 @@
           StrokeThickness="1">
 
             <Entry
-               x:Name="UsernameEntry"
                Keyboard="Email"
                FontSize="18"
                Placeholder="Email"
                TextColor="Wheat"
-               ReturnType="Go">
-            </Entry>
-
+               ReturnType="Go"
+               Text="{Binding UserName}"/>
+            
         </Border>
 
         <Border
@@ -44,27 +46,26 @@
             ColumnDefinitions="*,Auto"
             VerticalOptions="Center">
 
-                <Entry
-                   x:Name="PasswordEntry"
+                <Entry               
                    BackgroundColor="Transparent"
                    FontSize="18"
-                   IsPassword="True"
+                   IsPassword="{Binding EntryAsPassword}"
                    Placeholder="סיסמה"
                    TextColor="Wheat"
-                   VerticalOptions="Center"/>
+                   VerticalOptions="Center"
+                   Text="{Binding UserPassword}"/>
 
-                <Button
-                   x:Name="TogglePassordButton"
+                <Button                  
                    Margin="5,0,0,0"
                    BackgroundColor="Transparent"
                    FontSize="24"
                    HorizontalOptions="End"
-                   Text="EYE"
+                   Text="&#xe8f5;"
+                   FontFamily="MaterialIcons"
                    TextColor="White"
-                   VerticalOptions="Center"/>
-
+                   VerticalOptions="Center"
+                   Clicked="TogglePassordButton_Clicked"/>
             </Grid>
-
         </Border>
 
 
@@ -73,19 +74,19 @@
             CornerRadius="8"
             FontSize="18"
             HeightRequest="50"
-            IsEnabled="False"
             Text="חיבור"
-            TextColor="White"/>
-     
+            TextColor="White"
+            IsEnabled="{Binding IsSignInButtonEnabled}" 
+            Clicked="OnSignInButtonClick"/>
+
 
         <!-- שגיאה-->
         <Label
-            x:Name="errorLbl"
             FontSize="45"
             HorizontalTextAlignment="Center"
-            IsVisible="False"
-            Text="שגיאה"
-            TextColor="Red"/>
+            IsVisible="{Binding SignInMessageVisible}"
+            Text="{Binding MessageText}"
+            TextColor="{Binding MessageColor}"/>
       
     </VerticalStackLayout>    
 </ContentPage>
